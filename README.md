@@ -1,6 +1,6 @@
 # M/M/1/K Queueing System Simulator for a Network Router
 
-This project provides a Python-based, event-driven simulation of a network router modeled as an **M/M/1/K queueing system**. The goal is to analyze the router's performance under various traffic conditions by calculating key metrics and comparing the results with established queueing theory.
+This project provides a Python-based, event-driven simulation of a network router modeled as an **M/M/1/K queueing system** with Single Threshold. The goal is to analyze the router's performance under various traffic conditions by calculating key metrics and comparing the results with established queueing theory.
 
 ## What is an M/M/1/K System?
 
@@ -82,21 +82,20 @@ When you run the script, a statistical summary will be printed to the console, a
 
 **Example Console Output:**
 ```
+--- Starting Test 1: System with Moderate Load ---
+
 ==================================================
 Statistics
 ==================================================
-Simulation Time: 2000.00 seconds
-Packets delivered: 9950
-Packets lost: 50
-Drop probability: 0.50%
-Server utilization: 82.95%
-Average waiting time in queue: 0.4532 seconds
-Throughput: 4.9750 packets/second
-
--------------------- Theoretical Comparison ------------------
-Rho (traffic intensity): 0.8333
-Theoretical loss probability (M/M/1/K): 0.45%
-==================================================
+Simulation Time: 43.5109 seconds
+Packets delivered: 179
+Packets lost: 21
+Average service rate: 4.6227
+Service rate std dev: 1.4950
+Loss probability: 10.50%
+Server utilization: 96.99%
+Average waiting time in queue: 1.2838 seconds
+Throughput: 4.1139 packets/second
 ```
 
 ## 🛠️ Code Structure
@@ -104,6 +103,7 @@ Theoretical loss probability (M/M/1/K): 0.45%
 The simulation is encapsulated within the `Router` class, which has the following main methods:
 
 - `__init__(self, arrival_rate, process_rate, K)`: Initializes the router with the parameters λ (arrival), μ (processing), and K (capacity).
+- `threshold(self, queue)`: Based on the length of the queue, increses the service rate
 - `simulation(self, time, n_packets)`: Runs the event-driven simulation, collecting data on the system's behavior.
 - `statistics(self)`: Calculates and prints the performance metrics, including a comparison with theoretical results.
 - `plot_results(self)`: Generates the visualization plots using matplotlib.
